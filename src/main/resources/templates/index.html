@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../static/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    function doUpload() {
+        var formData = new FormData($("#uploadForm")[0]);
+        $.ajax({
+            url: "/file/import",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                var str = JSON.stringify(data);
+                console.log(data)
+                console.log(str)
+            },
+            error: function (data) {
+                alert(JSON.stringify(data));
+            }
+        });
+    }
+</script>
+<body>
+
+<form id= "uploadForm" enctype="multipart/form-data" action="/file/import" method="post">
+    <p >上传文件： <input type="file" name="file"/></p>
+    <input type="button" value="上传" onclick="doUpload()" />
+</form>
+
+
+</body>
+</html>
